@@ -1,0 +1,67 @@
+Build me a hackathon-ready, production-quality React + Tailwind CSS web app for TwinAI – Predictive Life Monitoring & Notification System for Machine-Critical Spares (SH09).
+Core Problem Statement (expanded):
+In CNC machines and other precision equipment, critical spares such as ball screws, LM guideways, and tool magazines have a defined service life. But there’s no unified system that continuously monitors their actual condition or predicts wear-out in real time. This lack of visibility leads to:
+– Unexpected breakdowns
+– Poor maintenance scheduling
+– Unplanned downtime and production loss
+– Higher operational costs due to reactive instead of proactive maintenance
+
+MSMEs are especially vulnerable because many machines are not IoT-enabled, and maintenance is often manual and inconsistent. This creates a major opportunity for a hybrid predictive system that works in both sensor-rich and sensor-less environments.
+
+Our Goal: Create a smart, connected, AI-assisted dashboard that:
+
+Tracks real-time running hours, cycles, and load data for critical spares (manual entry + sensor data support).
+Predicts remaining useful life (RUL) of each component using ML logic.
+Sends proactive alerts via WhatsApp (Twilio API), email, or in-dashboard notifications before critical thresholds are reached.
+Logs all maintenance activities, replacements, and spare usage in a searchable history.
+Offers visual insights with trends, forecasts, and downtime risk estimations.
+Supports configurable life thresholds per spare type.
+Displays replacement part cost in ₹ when a spare reaches critical level to help planners budget and prioritize replacements.
+Can integrate with preventive maintenance schedules for better planning.
+Updated Thresholds:
+– Safe: >60% life remaining (Green)
+– Warning: 20–60% life remaining (Yellow)
+– Critical: <20% life remaining (Red) → triggers WhatsApp alert + replacement part cost display in ₹.
+Innovative Add-ons:
+– Context-aware alerts: Notification urgency adapts based on production schedule, load conditions, and seasonal usage patterns.
+– WhatsApp cost estimation: Sends cost impact if a breakdown occurs vs. preventive maintenance.
+– AI-driven wear simulation for testing scenarios.
+– Single compact dashboard view (no clutter) but with expandable drill-down panels for:
+– Per-machine analytics
+– Spare-specific history
+– Predictive graphs of failure probability
+– Support for sensor-less mode (manual logging with intelligent extrapolation).
+– Auto-refresh live updates without relying on “Simulate Wear” as the main driver — the button should be just for demo/testing.
+
+UI/UX Requirements:
+– Premium, modern, hackathon-winning Tailwind styling with minimal grey base + vibrant accent colors (green/warning/red + professional blue).
+– Overall Wear Trend Chart: Gradient fill, smooth animations, predictive trend line overlay, dynamic threshold markers (updated to 20% critical).
+– Maintenance Log: Rich alert feed with icons, urgency tags, timestamps, hover details, and part price in ₹ for critical spares.
+– Machine Status Cards: Glassmorphism style with pulsing status indicators, component icons, and subtle hover animations.
+– Navigation Bar: Sleek with date/time, TwinAI branding icon, and floating action buttons (“Add Machine”, “Simulate Wear”).
+– Micro-interactions for hover states, data refresh, and alert arrivals.
+– TwinAI watermark or subtle brand touches.
+
+Tech Stack:
+– Frontend: React + TailwindCSS (fully responsive).
+– Backend: FastAPI (Python) with ML model for RUL prediction.
+– Database: MySQL or Firebase for storing machines, spares, logs, thresholds.
+– Notifications: Twilio WhatsApp API integration (use sandbox for dev).
+– Twilio details:
+– Account SID: ACd2403bd68a1e4991802f506bf55362ff
+– Auth Token: ed5411db63cd602beade26c1bb5494c8
+– Sandbox From Number: +14155238886
+– My Test Number: +918248286007
+– Graphs: Chart.js or Recharts with smooth animations.
+– Live Updates: WebSocket or setInterval auto-refresh for simulated live data.
+
+Output Expectation:
+Deliver a single compact dashboard with:
+– Live Overall Wear Trend chart (critical at <20%)
+– Maintenance Log with alerts, history, and replacement costs in ₹
+– CNC Machine Status cards with expandable details
+– Real-time updates without user action
+– “Simulate Wear” button only for demo
+– Twilio WhatsApp alert test integration
+– AI-predicted RUL visible in card hover or expanded view
+– Code should be clean, modular, and hackathon-ready.

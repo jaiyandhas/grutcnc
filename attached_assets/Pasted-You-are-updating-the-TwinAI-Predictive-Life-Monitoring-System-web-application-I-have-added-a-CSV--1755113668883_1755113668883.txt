@@ -1,0 +1,45 @@
+You are updating the TwinAI – Predictive Life Monitoring System web application.
+I have added a CSV file named critical_spares_dataset.csv in the backend/data/ folder. This CSV contains a master list of CNC critical spares with columns like item_code, item_description, unit, min_stock, reorder_level, quantity_in_hand, status, and machine_type.
+Goal: Integrate this CSV into the backend so that it becomes part of the database and powers real-time predictive maintenance + inventory tracking.
+Changes to Implement:
+Load CSV into the Database
+Use a CSV parser to read critical_spares_dataset.csv at server startup.
+Store the data in the database (PostgreSQL using Drizzle ORM), creating a table critical_spares with all CSV columns.
+Ensure each spare has a unique item_code.
+Extend Schema for Predictive Tracking
+Add fields:
+operating_hours (number, default 0)
+load_factor (number, default 1.0)
+wear_percentage (number, default 0)
+last_maintenance_date (date, nullable)
+predicted_replacement_date (date, nullable)
+replacement_cost_inr (number, nullable)
+Predictive Wear Logic
+Implement formula:
+wear_percentage = (operating_hours / expected_life_hours) * 100
+where expected_life_hours is configurable per spare type.
+Status rules:
+Green: wear < 40% remaining life and stock above reorder level.
+Yellow: wear between 20–40% or low stock.
+Red: wear < 20% or out of stock → Trigger WhatsApp alert + show replacement cost.
+Inventory & Maintenance Tracking
+Create endpoints to:
+GET all spares with live wear and stock status.
+PATCH spare usage (update operating_hours, recalculate wear).
+POST maintenance log entry (reduce quantity_in_hand, reset operating_hours).
+Trigger reorder alerts when quantity_in_hand < reorder_level.
+Frontend Updates
+Show this data in the dashboard table with columns: Name, Type, Wear %, Status, Stock, Replacement Cost, Last Maintenance Date.
+Allow simulation of wear for all parts at once or per part.
+Add filter tabs for All / Green / Yellow / Red.
+Keep existing dashboard layout for compactness but make it dynamic with real-time updates from backend instead of fully depending on “Simulate Wear.”
+Hackathon Innovation
+Merge predictive maintenance with inventory shortage alerts in one dashboard.
+WhatsApp integration via Twilio to send alerts when a part reaches critical wear or stock runs low.
+Store WhatsApp alert history in a separate table.
+Deliverables:
+Fully working backend integration for CSV data.
+Database table for spares with predictive and stock tracking.
+API endpoints for frontend consumption.
+Updated frontend showing merged wear + stock + cost info.
+WhatsApp alerts on critical status.

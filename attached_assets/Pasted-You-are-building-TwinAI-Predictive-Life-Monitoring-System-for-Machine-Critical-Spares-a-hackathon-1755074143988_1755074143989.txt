@@ -1,0 +1,72 @@
+You are building TwinAI – Predictive Life Monitoring System for Machine-Critical Spares, a hackathon-ready SaaS web application.
+The solution predicts the remaining life of critical CNC components like ball screws, LM guideways, and tool magazines, and sends WhatsApp alerts when thresholds are breached.
+This must be visually impressive, smooth, and functional — not a barebones UI.
+🎯 Requirements Overview
+Frontend: React (TypeScript) + Tailwind CSS
+Backend: FastAPI (Python) for API & ML logic
+Database: In-memory or JSON for now (mock DB)
+ML Logic: Simple life prediction model (mock formula based on hours + load factor for now)
+Realtime Alerts: Twilio WhatsApp API integration
+Deployment Ready: Code should run locally without breaking
+💻 Frontend Features
+Dashboard
+Clean, modern grey-themed Tailwind UI.
+Grid of machine cards showing: Machine Name, Component Type, Remaining Life % (graph + number), Status color (green >60%, yellow 30–60%, red <30%).
+Overall system chart (line chart or radial progress) summarizing average wear across machines.
+Global Alerts panel: recent WhatsApp notifications + warnings.
+CRUD Operations
+Create: Form modal to add a machine with fields → name, component, initial life %, operating hours, load factor.
+Read: Main dashboard displays all machines.
+Update: Edit button on each card to change details.
+Delete: Trash icon to remove machine (with confirmation).
+Simulate Wear
+Button to reduce all machines’ life % according to the ML prediction logic — simulates time passing.
+If any machine drops below 30%, trigger WhatsApp alert instantly.
+🖥 Backend Features (FastAPI)
+/machines (GET) → Return list of all machines
+/machines (POST) → Add a new machine
+/machines/{id} (PUT) → Update machine details
+/machines/{id} (DELETE) → Delete a machine
+/simulate (POST) → Simulate wear for all machines and return updated list
+ML logic = Remaining Life % = Initial Life % – (Hours × Load Factor × Wear Rate)
+📲 WhatsApp Alerts (Twilio Sandbox)
+Account SID: ACd2403bd68a1e4991802f506bf55362ff
+Auth Token: ed5411db63cd602beade26c1bb5494c8
+Sandbox From Number: +14155238886
+My Number: +918248286007
+Logic:
+On machine creation or update → If Remaining Life % < 30%, send alert:
+"🚨 ALERT: {machineName}'s {component} is below safe threshold at {life}%. Immediate maintenance recommended."
+On simulate wear → For any machine crossing threshold, send alert.
+API Example (Python, requests):
+import requests
+
+def send_whatsapp_alert(machineName, component, life):
+    url = "https://api.twilio.com/2010-04-01/Accounts/ACd2403bd68a1e4991802f506bf55362ff/Messages.json"
+    data = {
+        "To": "whatsapp:+918248286007",
+        "From": "whatsapp:+14155238886",
+        "Body": f"🚨 ALERT: {machineName}'s {component} is below safe threshold at {life}%. Immediate maintenance recommended."
+    }
+    requests.post(url, data=data, auth=("ACd2403bd68a1e4991802f506bf55362ff", "ed5411db63cd602beade26c1bb5494c8"))
+🎨 UI Guidelines
+Minimal grey professional theme with light shadows, rounded corners, and responsive design.
+Use Tailwind’s utility classes for spacing, typography, and colors.
+Include icons (Heroicons or Lucide) for machine types, alerts, and actions.
+Use charts (Recharts or Chart.js) for visualizing wear.
+Alerts panel should feel “live” — maybe auto-refresh on backend updates.
+🧠 Innovation & Novelty for Hackathon
+WhatsApp-based real-time predictive maintenance alerts (affordable, scalable)
+Context-aware alerting (future-ready: ML can factor environment data like temperature, load, vibration)
+Cost estimation module (future: estimate maintenance cost in INR based on spare type & urgency)
+Sensorless prediction for MSMEs without expensive IoT hardware (manual input simulation possible)
+Full CRUD + Analytics dashboard for actual operational workflow
+📌 Deliverables for this Prompt
+Fully working React + Tailwind frontend with CRUD & charts.
+FastAPI backend with machine management + simulate wear logic.
+Twilio WhatsApp integration working in sandbox mode with provided credentials.
+Clean UI — no placeholder junk, professional and unique look.
+Code well-structured in frontend/ and backend/ folders.
+Do not strip out Tailwind or charts.
+Do not replace the CRUD flow with hardcoded lists.
+Do not leave UI looking generic — ensure it looks hackathon demo-ready.
